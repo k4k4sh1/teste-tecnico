@@ -4,9 +4,9 @@
 - Spring Boot 2.5.0 / Java 8
 - Spring Data JPA
 - Bean Validation
-- Thymeleaf 
+- Thymeleaf 3.0.12
 - Postgresql 12
-- Lombok
+- Lombok 1.18.20
 
 # Instruções de instalação #
 - Instale o banco de dados Postgresql com versão igual ou maior que 12 

@@ -1,6 +1,7 @@
 package br.com.totvs.testetecnico.controller;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -27,7 +28,7 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService produtoService;
-	
+
 	@InitBinder
 	public void initBinderCategoria(WebDataBinder binder) {
 		binder.registerCustomEditor(BigDecimal.class, new BigDecimalEditor());
@@ -51,16 +52,24 @@ public class ProdutoController {
 		if (bindingResult.hasErrors()) {
 			return "produto/cadastro";
 		}
-		
+
+		Optional<Produto> pesquisaPorNomeIgual = produtoService.pesquisaPorNomeIgual(produto.getNome().trim())
+				.filter(prod -> prod.getId() != produto.getId());
+
+		if (pesquisaPorNomeIgual.isPresent()) {
+			bindingResult.rejectValue("nome", "produto.nome", "Já existe um produto cadastrado com o nome informado!");
+			return "produto/cadastro";
+		}
+
 		produtoService.salvar(produto);
 		redirectAttributes.addFlashAttribute("mensagem_sucesso", "Produto salvo com sucesso!");
 
 		return "redirect:/produtos";
 	}
-	
+
 	@GetMapping("/{id}")
 	public String editar(@PathVariable(name = "id") Long id, Model model, RedirectAttributes redirectAttributes) {
-		
+
 		try {
 			Produto produto = produtoService.pesquisaPorId(id);
 			model.addAttribute("produto", produto);
@@ -68,7 +77,7 @@ public class ProdutoController {
 			redirectAttributes.addFlashAttribute("mensagem_alerta", "Produto não encontrado!");
 			return "redirect:/produtos";
 		}
-		
+
 		return "produto/cadastro";
 	}
 

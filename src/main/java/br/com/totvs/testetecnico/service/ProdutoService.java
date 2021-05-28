@@ -1,6 +1,7 @@
 package br.com.totvs.testetecnico.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,15 @@ public class ProdutoService {
 				.orElseThrow(() -> new ProdutoNaoEncontradoException());
 	}
 	
+	public Optional<Produto> pesquisaPorNomeIgual(String nome) {
+		return produtoRepository.findByNome(nome);
+	}
+	
 	public class ProdutoNaoEncontradoException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+	}
+	
+	public class ProdutoJaCadastradoException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 	}
 	

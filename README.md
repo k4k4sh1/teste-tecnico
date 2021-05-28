@@ -9,7 +9,9 @@
 - Lombok
 
 # Instruções de instalação #
-- Instale o banco de dados Postgresql com versão igual ou maior que 12;
+- Instale o banco de dados Postgresql com versão igual ou maior que 12 
+- Obs: A senha padrão é teste. 
+Para alterar a senha modifique o atributo spring.datasource.password no arquivo <b>application.properties</b> do projeto;
 - Crie um banco com o nome "pedidos";
 - Baixe o projeto e extraia para o local desejado, copie o caminho do arquivo e depois navegue até ele usando o prompt de comando (CMD);
 - Execute o comando: mvnw install -DskipTests;

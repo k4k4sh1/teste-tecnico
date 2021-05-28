@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Lucas Folador">
+
+<title>Pedidos</title>
+
+<link th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}"
+	rel="stylesheet">
+<style>
+	.container-fluid {
+		padding: 10px;
+	}
+</style>
+</head>
+<body>
+
+	<div th:replace="layout/cabecalho :: header"></div>
+
+	<div class="container-fluid">
+
+		<div th:replace="layout/mensagens"></div>
+
+		<div class="form-row">
+
+			<div class="form-group col-md-12">
+				<h2 class="h2">Pedidos</h2>
+			</div>
+
+			<div class="form-group col-md-12">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Número</th>
+							<th>Data</th>
+							<th>Situação</th>
+							<th>Razão Social</th>
+							<th>CNPJ</th>
+							<th>Quantidade de Produtos</th>
+							<th>Quantidade de Itens</th>
+							<th>Total Pedido</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="pedido, i : ${pedidos}">
+							<td th:text="${pedido.numero}">Número</td>
+							<td th:text="${#dates.format(pedido.data, 'dd/MM/yyyy')}">Data</td>
+							<td th:text="${pedido.situacao}">Situação</td>
+							<td th:text="${pedido.razaoSocial}">Razão Social</td>
+							<td th:text="${pedido.cnpj}">CNPJ</td>
+							<td th:text="${pedido.quantidadeProdutos}">Quantidade de
+								Produtos</td>
+							<td th:text="${pedido.quantidadeItens}">Quantidade de Itens</td>
+							<td th:text="${#numbers.formatCurrency(pedido.totalPedido)}">Total Pedido</td>
+							<td><a class="btn btn-secondary" 
+								th:href="@{/pedidos/{numero}(numero=${pedido.numero})}">Editar</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+		<a class="btn btn-info text-white" th:href="@{/}">Voltar</a>
+
+	</div>
+
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<script
+		th:src="@{/webjars/bootstrap/4.6.0-1/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

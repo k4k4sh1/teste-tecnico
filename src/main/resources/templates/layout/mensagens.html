@@ -1,0 +1,26 @@
+<div class="alert alert-success alert-dismissible fade show"
+	role="alert" th:if="${mensagem_sucesso != null}">
+	<strong th:text="${mensagem_sucesso}"></strong>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="alert alert-warning alert-dismissible fade show"
+	role="alert" th:if="${mensagem_alerta != null}">
+	<strong th:text="${mensagem_alerta}"></strong>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert"
+	th:if="${mensagem_erro != null}">
+	<strong th:text="${mensagem_erro}"></strong>
+	<button type="button" class="close" data-dismiss="alert"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>

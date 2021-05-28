@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Lucas Folador">
+
+<title>Novo Produto</title>
+
+<link th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}"
+	rel="stylesheet">
+<style>
+	.container-fluid {
+		padding: 10px;
+	}
+</style>
+</head>
+<body>
+
+	<div th:replace="layout/cabecalho :: header"></div>
+
+	<div class="container-fluid">
+
+		<form method="post" th:action="@{/produtos}">
+			<div class="form-row">
+
+				<div class="form-group col-md-12">
+					<h2 class="h2">Novo Produto</h2>
+				</div>
+
+				<input type="hidden" class="form-control" th:field="*{produto.id}" />
+				<input type="hidden" class="form-control"
+					th:field="*{produto.versao}" />
+
+				<div class="form-group col-md-8">
+					<label class="form-label" for="nome">Nome</label> <input
+						type="text" class="form-control" id="nome"
+						th:field="*{produto.nome}" name="nome" required="required"
+						th:classappend="${#fields.hasErrors('produto.nome')}? 'is-invalid' : ''"
+						autofocus="autofocus">
+					<div class="invalid-feedback">
+						<span
+							class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+							th:if="${#fields.hasErrors('produto.nome')}"
+							th:errors="*{produto.nome}"></span>
+					</div>
+				</div>
+
+				<div class="form-group col-md-4">
+					<label class="form-label" for="preco">Preço</label> <input
+						type="text" class="form-control" id="preco"
+						data-mask="#.##0,00" data-mask-reverse="true"
+						th:classappend="${#fields.hasErrors('produto.preco')}? 'is-invalid' : ''"
+						th:field="*{produto.preco}" name="nome" required="required">
+					<div class="invalid-feedback">
+						<span
+							class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+							th:if="${#fields.hasErrors('produto.preco')}"
+							th:errors="*{produto.preco}"></span>
+					</div>
+				</div>
+			</div>
+			<a class="btn btn-info text-white" th:href="@{/produtos}">Voltar</a>
+			<button class="btn btn-success text-white">Salvar</button>
+		</form>
+
+	</div>
+
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<script
+		th:src="@{/webjars/bootstrap/4.6.0-1/js/bootstrap.bundle.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+</body>
+</html>

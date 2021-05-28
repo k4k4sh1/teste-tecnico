@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Lucas Folador">
+
+<title>Novo Pedido</title>
+
+<link th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}"
+	rel="stylesheet">
+	
+<style>
+	.container-fluid {
+		padding: 10px;
+	}
+</style>
+</head>
+<body>
+
+	<div th:replace="layout/cabecalho :: header"></div>
+
+	<div class="container-fluid">
+
+		<form class="formulario" method="post" th:action="@{/pedidos}">
+			<div class="form-row">
+
+				<div class="form-group col-md-12">
+					<h2 class="h2">Novo Pedido</h2>
+				</div>
+
+				<input type="hidden" class="form-control"
+					th:field="*{pedido.numero}" /> <input type="hidden"
+					class="form-control" th:field="*{pedido.versao}" />
+
+				<div class="form-group col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="form-row">
+
+								<div class="form-group col-md-3">
+									<label class="form-label" for="numero">Número</label> <input
+										type="text" class="form-control" id="numero"
+										th:value="*{pedido.numero}" name="nome" required="required"
+										readonly="readonly">
+								</div>
+
+								<div class="form-group col-md-3">
+									<label class="form-label" for="data">Data</label> <input
+										type="date" class="form-control" id="data"
+										th:field="*{pedido.data}" name="data" required="required"
+										th:classappend="${#fields.hasErrors('pedido.data')} ? 'is-invalid' : ''">
+									<div class="invalid-feedback">
+										<span
+											class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+											th:if="${#fields.hasErrors('pedido.data')}"
+											th:errors="*{pedido.data}"></span>
+									</div>
+								</div>
+
+								<div class="form-group col-md-6">
+									<label class="form-label" for="razaoSocial">Razão
+										Social</label> <input type="text" class="form-control"
+										id="razaoSocial" th:field="*{pedido.razaoSocial}"
+										name="razaoSocial" required="required"
+										th:classappend="${#fields.hasErrors('pedido.razaoSocial')}? 'is-invalid' : ''">
+									<div class="invalid-feedback">
+										<span
+											class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+											th:if="${#fields.hasErrors('pedido.razaoSocial')}"
+											th:errors="*{pedido.razaoSocial}"></span>
+									</div>
+								</div>
+
+								<div class="form-group col-md-3">
+									<label class="form-label" for="cnpj">CNPJ</label> <input
+										type="text" class="form-control" id="cnpj"
+										data-mask="00.000.000/0000-00" data-mask-clearifnotmatch="true"
+										th:field="*{pedido.cnpj}" name="cnpj" required="required"
+										th:classappend="${#fields.hasErrors('pedido.cnpj')}? 'is-invalid' : ''">
+									<div class="invalid-feedback">
+										<span
+											class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+											th:if="${#fields.hasErrors('pedido.cnpj')}"
+											th:errors="*{pedido.cnpj}"></span>
+									</div>
+								</div>
+
+								<div class="form-group col-md-3">
+									<label class="form-label" for="telefone">Telefone</label> <input
+										type="text" class="form-control" id="telefone" data-mask="(00) 00000-0000"
+										data-mask-clearifnotmatch="true"
+										th:field="*{pedido.telefone}" name="telefone"
+										required="required"
+										th:classappend="${#fields.hasErrors('pedido.telefone')}? 'is-invalid' : ''">
+									<div class="invalid-feedback">
+										<span
+											class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+											th:if="${#fields.hasErrors('pedido.telefone')}"
+											th:errors="*{pedido.telefone}"></span>
+									</div>
+								</div>
+
+								<div class="form-group col-md-6">
+									<label class="form-label" for="email">E-mail</label> <input
+										type="text" class="form-control" id="email"
+										th:field="*{pedido.email}" name="email" required="required"
+										th:classappend="${#fields.hasErrors('pedido.email')}? 'is-invalid' : ''">
+									<div class="invalid-feedback">
+										<span
+											class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+											th:if="${#fields.hasErrors('pedido.email')}"
+											th:errors="*{pedido.email}"></span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+				<div class="form-group col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="form-row">
+
+								<table class="table table-striped tabela">
+									<thead>
+										<tr>
+											<th>Produto</th>
+											<th>Preço</th>
+											<th>Quantidade</th>
+											<th>Total</th>
+											<th>Ações</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item, i : *{pedido.itensPedido}"
+											th:id="${i.index}">
+											<td><select class="form-control produtos"
+												th:field="*{pedido.itensPedido[__${i.index}__].produto.id}"
+												th:classappend="${#fields.hasErrors('pedido.itensPedido[__${i.index}__].produto')}? 'is-invalid' : ''"
+												required="required">
+													<option value="">Selecione o produto</option>
+													<option th:each="produto : ${produtos}"
+														th:attr="data-preco=${produto.preco}"
+														th:value="${produto.id}" th:text="${produto.nome}"></option>
+											</select>
+												<div class="invalid-feedback">
+													<span
+														class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+														th:if="${#fields.hasErrors('pedido.itensPedido[__${i.index}__].produto')}"
+														th:errors="*{pedido.itensPedido[__${i.index}__].produto}"></span>
+												</div></td>
+											<td><input type="text" class="form-control preco"
+												th:field="${pedido.itensPedido[__${i.index}__].produto.preco}"
+												data-mask="#.##0,00" data-mask-reverse="true"
+												readonly="readonly"></td>
+											<td><input type="number" class="form-control quantidade"
+												th:field="*{pedido.itensPedido[__${i.index}__].quantidade}"
+												required="required"
+												th:classappend="${#fields.hasErrors('pedido.itensPedido[__${i.index}__].quantidade')}? 'is-invalid' : ''">
+												<div class="invalid-feedback">
+													<span
+														class="text-xs font-weight-bold text-danger text-uppercase mb-1"
+														th:if="${#fields.hasErrors('pedido.itensPedido[__${i.index}__].quantidade')}"
+														th:errors="*{pedido.itensPedido[__${i.index}__].quantidade}"></span>
+												</div></td>
+											<td><input type="text" class="form-control subtotal"
+												th:value="${#numbers.formatCurrency(pedido.itensPedido[__${i.index}__].total)}"
+												readonly="readonly"></td>
+											<td><input type="hidden" class="form-control"
+												th:field="*{pedido.itensPedido[__${i.index}__].id}">
+												<input type="hidden" class="form-control"
+												th:field="*{pedido.itensPedido[__${i.index}__].versao}">
+												<a th:classappend="${i.index == 0} ? 'disabled' : ''"
+												th:attr="data-posicao=${i.index}" data-toggle="modal"
+												data-target="#exclusaoModal"
+												class="btn btn-danger text-white botaoExclusao"
+												title="Excluir"> Excluir </a></td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="5"><a
+												class="btn btn-warning text-white adicionarProduto">
+													Adicionar produto</a></td>
+										</tr>
+									</tfoot>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+				<div class="form-group col-md-12">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="form-row">
+
+								<input type="hidden" class="form-control"
+									th:field="${pedido.situacao}">
+
+								<div class="form-group col-md-3">
+									<label for="situacao">Situação</label> <input id="situacao"
+										type="text" class="form-control" th:value="${pedido.situacao}"
+										readonly="readonly">
+								</div>
+
+								<div class="form-group col-md-3">
+									<label for="quantidadeProdutos">Quantidade de Produtos</label>
+									<input id="quantidadeProdutos" type="text"
+										class="form-control quantidadeProdutos"
+										th:value="${pedido.quantidadeProdutos}" readonly="readonly">
+								</div>
+
+								<div class="form-group col-md-3">
+									<label for="quantidadeItens">Quantidade de Itens</label> <input
+										id="quantidadeItens" type="text"
+										class="form-control quantidadeItens"
+										th:value="${pedido.quantidadeItens}" readonly="readonly">
+								</div>
+
+								<div class="form-group col-md-3">
+									<label for="total">Total do Pedido</label> <input id="total"
+										type="text" class="form-control total"
+										th:value="${#numbers.formatCurrency(pedido.totalPedido)}"
+										readonly="readonly">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<input type="hidden" id="finalizar"
+				th:field="*{pedido.botaoFinalizar}"> <a
+				class="btn btn-info text-white" th:href="@{/pedidos}">Voltar</a>
+			<button class="btn btn-secondary text-white botaoGravar">Gravar</button>
+			<button class="btn btn-success text-white botaoFinalizar">Finalizar</button>
+		</form>
+
+	</div>
+
+	<div class="modal fade" id="exclusaoModal" tabindex="-1" role="dialog"
+		aria-labelledby="exclusaoModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exclusaoModalLabel">Exclusão</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" name="posicao" id="posicao" /> <label>Deseja
+						realmente excluir o item do pedido? </label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+					<button type="button" class="btn btn-success botaoConfirmar">Sim</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<script
+		th:src="@{/webjars/bootstrap/4.6.0-1/js/bootstrap.bundle.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		$(document).ready(function() {
+			var bloqueado = /*[[${bloqueado}]]*/'';
+			if (bloqueado) {
+				$(":input").attr("disabled", "disabled");
+				$(".adicionarProduto, .botaoGravar, .botaoFinalizar, .botaoExclusao").addClass("disabled");
+			}
+		});
+
+		$(".botaoFinalizar").on("click", function(e) {
+			$("#finalizar").val(1);
+		});
+
+		$(".botaoGravar").on("click", function(e) {
+			$("#finalizar").val(0);
+		});
+
+		$(".adicionarProduto").on("click", function(e) {
+			e.preventDefault();
+			var ultimaLinha = $(".tabela > tbody").find("tr:last");
+			var novaLinha = ultimaLinha.clone(true, true);
+			novaLinha.find("input").val("");
+			novaLinha.find("select").val("").prop('selected', true);
+			novaLinha.find(".botaoExclusao").removeClass("disabled");
+			ultimaLinha.after(novaLinha);
+
+			atualizarIds();
+			atualizarQuantidadeItens();
+			atualizarQuantidadeProdutos();
+		});
+
+		$(".produtos").on("change", function() {
+			var preco = $(this).find(":selected").data("preco");
+			var linha = $(this).closest("tr");
+			
+			var campoPreco = linha.find(".preco");
+			if (!preco) {
+				preco = 0;
+			} 
+			campoPreco.val(formatarDinheiro(parseFloat(preco)));
+			var quantidade = linha.find(".quantidade").val();
+			atualizarPreco($(this), quantidade, preco);
+			atualizarQuantidadeProdutos();
+		});
+
+		$(".quantidade").change(function() {
+			var quantidade = $(this).val();
+			var linha = $(this).closest("tr");
+			var preco = linha.find(".produtos :selected").data("preco");
+
+			var subtotal = quantidade * preco;
+			if (subtotal) {
+				linha.find(".subtotal").val(formatarDinheiro(subtotal));
+				atualizarPreco($(this), quantidade, preco);
+			}
+
+		});
+
+		$(".botaoExclusao").on("click", function() {
+			var posicao = $(this).data("posicao");
+			$(".modal-body #posicao").val(posicao);
+		});
+
+		$(".botaoConfirmar").on("click", function(e) {
+			e.preventDefault();
+			var posicao = $(".modal-body #posicao").val();
+			$("#" + posicao).remove();
+			$("#exclusaoModal").modal("hide");
+
+			var lista = $(".tabela > tbody > tr");
+			var atributos = new Array("produto", "preco", "quantidade",
+					"total", "id", "versao");
+
+			atualizarIds(lista, atributos);
+			atualizarTotal();
+			atualizarQuantidadeItens();
+			atualizarQuantidadeProdutos();
+		});
+
+		function atualizarPreco(input, quantidade, preco) {
+			var linha = input.closest("tr");
+
+			if (quantidade) {
+				var subtotal = quantidade * preco;
+				linha.find(".subtotal").val(formatarDinheiro(subtotal));
+				atualizarTotal();
+				atualizarQuantidadeItens();
+				atualizarQuantidadeProdutos();
+			}
+		}
+
+		function atualizarTotal() {
+			var total = 0;
+			var produtos = $(".tabela > tbody > tr");
+
+			produtos.each(function(indice, item) {
+				var preco = $(this).find(".produtos :selected").data("preco");
+				var quantidade = $(this).find(".quantidade").val();
+
+				if (preco && quantidade)
+					total += (preco * quantidade);
+			});
+
+			$(".total").val(formatarDinheiro(total));
+		}
+
+		function atualizarQuantidadeItens() {
+			var quantidadeItens = 0;
+			var produtos = $(".tabela > tbody > tr");
+
+			produtos.each(function(indice, item) {
+				var quantidade = $(this).find(".quantidade").val();
+				if (quantidade && quantidade > 0)
+					quantidadeItens += parseInt(quantidade);
+			});
+
+			$(".quantidadeItens").val(quantidadeItens);
+		}
+
+		function atualizarQuantidadeProdutos() {
+			var contador = {};
+			var produtos = $(".tabela > tbody > tr");
+			produtos.each(function(indice, item) {
+				var idProduto = $(this).find(".produtos :selected").val();
+				if (idProduto)
+					contador[idProduto] = contador[idProduto] + 1 || 1;
+			});
+
+			var quantidadeProdutos = Object.keys(contador).length;
+			$(".quantidadeProdutos").val(quantidadeProdutos);
+		}
+
+		function montarAtributoName(nomeLista, posicao, atributo) {
+			return nomeLista + "[" + posicao + "]." + atributo;
+		}
+
+		function montarAtributoId(nomeLista, posicao, atributo) {
+			return nomeLista + "" + posicao + "." + atributo;
+		}
+
+		function atualizarIds() {
+
+			var lista = $(".tabela > tbody > tr");
+			var atributos = new Array("produto", "preco", "quantidade",
+					"total", "id", "versao");
+
+			lista.each(function(i, nome) {
+				$(this).attr("id", i);
+				$(this).find(".botaoExclusao").attr("data-posicao", i);
+				$(this).find(":input").each(function(j, nome) {
+					$(this).attr("name", montarAtributoName("itensPedido", i, atributos[j]))
+						   .attr("id", montarAtributoId("itensPedido", i, atributos[j]));
+				});
+			});
+		}
+
+		function formatarDinheiro(valor) {
+			return valor.toLocaleString("pt-BR", {
+				style : "currency",
+				currency : "BRL"
+			});
+		}
+		/*]]>*/
+	</script>
+</body>
+</html>

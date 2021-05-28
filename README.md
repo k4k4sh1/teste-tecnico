@@ -1,6 +1,6 @@
 # teste-tecnico - TOTVS
 
-* Tecnologias
+# Tecnologias #
 - Spring Boot 2.5.0 / Java 8
 - Spring Data JPA
 - Bean Validation
@@ -8,7 +8,7 @@
 - Postgresql 12
 - Lombok
 
-* Instruções de instalação
+# Instruções de instalação #
 - Instale o banco de dados Postgresql com versão igual ou maior que 12;
 - Crie um banco com o nome "pedidos";
 - Baixe o projeto e extraia para o local desejado, copie o caminho do arquivo e depois navegue até ele usando o prompt de comando (CMD);

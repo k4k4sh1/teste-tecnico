@@ -32,7 +32,7 @@ mvnw install -DskipTests
 ```
 cd target
 ```
-- Execute o comando iniciar o sistema: 
+- Execute o comando para iniciar o sistema: 
 ```
 java -jar teste-tecnico-0.0.1-SNAPSHOT.jar
 ```

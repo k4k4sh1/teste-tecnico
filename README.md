@@ -37,7 +37,7 @@ cd target
 java -jar teste-tecnico-0.0.1-SNAPSHOT.jar
 ```
 
-# Sistema de Pedidos # :department_store:
+# Sistema de Pedidos :department_store: # 
 - Novo pedido - Cadastra um novo pedido;
 - Listagem de pedidos - Lista todos os pedidos;
 - Listagem de produtos - Lista todos os produtos;

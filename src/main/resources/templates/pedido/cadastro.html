@@ -162,7 +162,8 @@
 														th:errors="*{pedido.itensPedido[__${i.index}__].produto}"></span>
 												</div></td>
 											<td><input type="text" class="form-control preco"
-												th:value="*{#numbers.formatCurrency(pedido.itensPedido[__${i.index}__].produto.preco)}"
+												data-mask="#.##0,00" data-mask-reverse="true"
+												th:field="*{pedido.itensPedido[__${i.index}__].produto.preco}"
 												readonly="readonly"></td>
 											<td><input type="number" class="form-control quantidade"
 												th:field="*{pedido.itensPedido[__${i.index}__].quantidade}"

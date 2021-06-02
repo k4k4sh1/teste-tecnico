@@ -19,7 +19,7 @@
 ```
 spring.datasource.password=minhanovasenha
 ```
-6. Crie um banco com o nome "pedidos";
+6. Crie um banco de dados com o nome "pedidos";
 7. Navegue até o caminho do projeto usando o prompt de comando (CMD):
 ```
 cd C:\Users\lucas\Desktop\teste-tecnico

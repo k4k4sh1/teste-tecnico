@@ -134,6 +134,7 @@
 								<table class="table table-striped tabela">
 									<thead>
 										<tr>
+											<th>Nº</th>
 											<th>Produto</th>
 											<th>Preço</th>
 											<th>Quantidade</th>
@@ -144,6 +145,7 @@
 									<tbody>
 										<tr th:each="item, i : *{pedido.itensPedido}"
 											th:id="${i.index}">
+											<td class="numero" th:text="${i.index + 1}"></td>
 											<td><select class="form-control produtos"
 												th:field="*{pedido.itensPedido[__${i.index}__].produto.id}"
 												th:classappend="${#fields.hasErrors('pedido.itensPedido[__${i.index}__].produto')}? 'is-invalid' : ''"
@@ -160,8 +162,7 @@
 														th:errors="*{pedido.itensPedido[__${i.index}__].produto}"></span>
 												</div></td>
 											<td><input type="text" class="form-control preco"
-												th:field="*{pedido.itensPedido[__${i.index}__].produto.preco}"
-												data-mask="#.##0,00" data-mask-reverse="true"
+												th:value="*{#numbers.formatCurrency(pedido.itensPedido[__${i.index}__].produto.preco)}"
 												readonly="readonly"></td>
 											<td><input type="number" class="form-control quantidade"
 												th:field="*{pedido.itensPedido[__${i.index}__].quantidade}"
@@ -267,7 +268,7 @@
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="posicao" id="posicao" /> <label>Deseja
-						realmente excluir o item do pedido? </label>
+						realmente excluir o item <b id="numeroItem"></b> do pedido?</label>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
@@ -346,6 +347,7 @@
 		$(".botaoExclusao").on("click", function() {
 			var posicao = $(this).data("posicao");
 			$(".modal-body #posicao").val(posicao);
+			$(".modal-body #numeroItem").html(posicao + 1);
 		});
 
 		$(".botaoConfirmar").on("click", function(e) {
@@ -429,6 +431,7 @@
 
 			lista.each(function(i, nome) {
 				$(this).attr("id", i);
+				$(this).find(".numero").html(i + 1);
 				$(this).find(".botaoExclusao").attr("data-posicao", i);
 				$(this).find(":input").each(function(j, nome) {
 					$(this).attr("name", montarAtributoName("itensPedido", i, atributos[j]))

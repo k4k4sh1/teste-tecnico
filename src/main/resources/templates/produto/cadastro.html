@@ -53,6 +53,7 @@
 					<label class="form-label" for="preco">Preço</label> <input
 						type="text" class="form-control" id="preco"
 						data-mask="#.##0,00" data-mask-reverse="true"
+						data-mask-clearifnotmatch="true"
 						th:classappend="${#fields.hasErrors('produto.preco')}? 'is-invalid' : ''"
 						th:field="*{produto.preco}" name="nome" required="required">
 					<div class="invalid-feedback">

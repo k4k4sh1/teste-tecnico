@@ -92,7 +92,7 @@
 
 								<div class="form-group col-md-3">
 									<label class="form-label" for="telefone">Telefone</label> <input
-										type="text" class="form-control" id="telefone" data-mask="(00) 00000-0000"
+										type="text" class="form-control" id="telefone" data-mask="(00) 00000-0009"
 										data-mask-clearifnotmatch="true"
 										th:field="*{pedido.telefone}" name="telefone"
 										required="required"
@@ -160,7 +160,7 @@
 														th:errors="*{pedido.itensPedido[__${i.index}__].produto}"></span>
 												</div></td>
 											<td><input type="text" class="form-control preco"
-												th:field="${pedido.itensPedido[__${i.index}__].produto.preco}"
+												th:field="*{pedido.itensPedido[__${i.index}__].produto.preco}"
 												data-mask="#.##0,00" data-mask-reverse="true"
 												readonly="readonly"></td>
 											<td><input type="number" class="form-control quantidade"
@@ -354,11 +354,7 @@
 			$("#" + posicao).remove();
 			$("#exclusaoModal").modal("hide");
 
-			var lista = $(".tabela > tbody > tr");
-			var atributos = new Array("produto", "preco", "quantidade",
-					"total", "id", "versao");
-
-			atualizarIds(lista, atributos);
+			atualizarIds();
 			atualizarTotal();
 			atualizarQuantidadeItens();
 			atualizarQuantidadeProdutos();

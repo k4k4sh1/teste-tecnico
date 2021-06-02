@@ -24,7 +24,7 @@ spring.datasource.password=minhanovasenha
 ```
 cd C:\Users\lucas\Desktop\teste-tecnico
 ```
-- Execute o comando: 
+- Execute o comando para realizar as atualizações das bibliotecas e buildar o projeto: 
 ```
 mvnw install -DskipTests
 ```
@@ -32,7 +32,7 @@ mvnw install -DskipTests
 ```
 cd target
 ```
-- Execute o comando: 
+- Execute o comando iniciar o sistema: 
 ```
 java -jar teste-tecnico-0.0.1-SNAPSHOT.jar
 ```

@@ -72,7 +72,7 @@ public class Pedido {
 	@NotNull
 	@NotEmpty
 	@NotBlank
-	@Length(min = 15, max = 15)
+	@Length(min = 14, max = 15)
 	@Column(length = 15, nullable = false)
 	private String telefone;
 

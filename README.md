@@ -10,14 +10,17 @@
 - Lombok 1.18.20
 
 # Instruções de instalação #
-- Faça o clone ou baixe o projeto e extraia para o local desejado
-- Abra a sua IDE e faça a importação de projetos Maven
-- Caso não possua o Lombok adicionado a sua IDE, siga as instruções neste link para instação [Lombok Setup](https://projectlombok.org/setup/eclipse)
-- Instale o banco de dados Postgresql com versão igual ou maior que 12 
+1. Faça o clone ou baixe o projeto e extraia para o local desejado
+2. Abra a sua IDE e faça a importação de projetos Maven
+3. Caso não possua o Lombok adicionado a sua IDE, siga as instruções neste link para instação [Lombok Setup](https://projectlombok.org/setup/eclipse)
+4. Instale o banco de dados Postgresql com versão igual ou maior que 12 
 - Obs: A senha padrão é teste.
-Para alterar a senha modifique o atributo <b>spring.datasource.password</b> no arquivo <b>application.properties</b> do projeto;
-- Crie um banco com o nome "pedidos";
-- Navegue até o caminho do projeto usando o prompt de comando (CMD):
+5. Para alterar a senha modifique o atributo no arquivo <b>application.properties</b> do projeto:
+```
+spring.datasource.password=minhanovasenha
+```
+6. Crie um banco com o nome "pedidos";
+7. Navegue até o caminho do projeto usando o prompt de comando (CMD):
 ```
 cd C:\Users\lucas\Desktop\teste-tecnico
 ```

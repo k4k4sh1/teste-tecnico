@@ -26,15 +26,11 @@ cd C:\Users\lucas\Desktop\teste-tecnico
 ```
 - Execute o comando para realizar as atualizações das bibliotecas e buildar o projeto: 
 ```
-mvnw install -DskipTests
-```
-- Navegue até a pasta chamada "target" criada na pasta principal do projeto:
-```
-cd target
+mvnw install clean
 ```
 - Execute o comando para iniciar o sistema: 
 ```
-java -jar teste-tecnico-0.0.1-SNAPSHOT.jar
+mvnw spring-boot:run
 ```
 
 # Sistema de Pedidos :department_store: # 
